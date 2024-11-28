@@ -69,5 +69,7 @@ typings/
 .env
 .next
 
+# private
 .husky
 /dist
+package-lock.json
