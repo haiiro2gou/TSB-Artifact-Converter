@@ -24,6 +24,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.15.0",
+    "@stylistic/eslint-plugin": "^2.11.0",
     "@types/node": "^22.9.3",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
@@ -39,8 +40,13 @@
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix",
-    "*.ts": "tsc --noEmit",
+    "*.ts": "bash -c 'tsc --noEmit'",
     "*.{js,ts,json}": "prettier --write",
     "*.js": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3",
+    "jschardet": "^3.1.4",
+    "minimatch": "^9.0.5"
   }
 }

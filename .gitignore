@@ -73,3 +73,5 @@ typings/
 .husky
 /dist
 package-lock.json
+input
+output
