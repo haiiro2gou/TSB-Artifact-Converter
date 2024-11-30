@@ -151,6 +151,44 @@ export async function updateArtifactRegistry(
                 }
             );
 
+            const enroll = v.find(
+                v => path.relative(dir, v) === "register.mcfunction"
+            );
+            if (enroll === undefined) {
+                console.log(`${" ".repeat(2)}Shard register file not found...`);
+            } else {
+                console.log(
+                    `${" ".repeat(2)}Transferring shard register file...`
+                );
+                await readFile(enroll).then(async lines => {
+                    await writeFile(
+                        path.join(outputPath, idStr, "enroll_pool.mcfunction"),
+                        [
+                            makeIMPDoc(
+                                `asset:artifact/${idStr}/enroll_pool`,
+                                {
+                                    type: "within",
+                                    target: {
+                                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                                        "tag/function": [
+                                            "asset:artifact/enroll_pool",
+                                        ],
+                                    },
+                                },
+                                ["神器プールへの登録処理"]
+                            ),
+                            lines
+                                .split("\n")
+                                .slice(6)
+                                .map(v =>
+                                    v.replace(/RarityRegistry/, "ShardPool")
+                                )
+                                .join("\n"),
+                        ].join("\n")
+                    );
+                });
+            }
+
             if (trigger === "") {
                 console.log(`${" ".repeat(2)}Trigger not found. Skipping...`);
                 return;
